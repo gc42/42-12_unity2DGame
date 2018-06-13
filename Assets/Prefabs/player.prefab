@@ -39,6 +39,7 @@ GameObject:
   - component: {fileID: 58210748217220640}
   - component: {fileID: 50108686752356080}
   - component: {fileID: 114306837099830224}
+  - component: {fileID: 114604779223440334}
   m_Layer: 0
   m_Name: player
   m_TagString: Untagged
@@ -120,7 +121,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shotPrefab: {fileID: 4196357990450792, guid: 6845c8561321b415daa1ee0f305fcf1f, type: 2}
-  shootingRate: 0.25
+  shootingRate: 0.1
 --- !u!114 &114306837099830224
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -133,6 +134,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: {x: 20, y: 20}
+--- !u!114 &114604779223440334
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1926018334183720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ea90dbdbab8b4367ac362608b7617c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hp: 20
+  isEnemy: 0
 --- !u!212 &212873408950521846
 SpriteRenderer:
   m_ObjectHideFlags: 1

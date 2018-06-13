@@ -33,7 +33,6 @@ public class PlayerScript : MonoBehaviour
 
 		// Shooting
 		bool shoot = Input.GetKey(KeyCode.Space);
-		//shoot     |= Input.GetKeyDown("Fire2");
 
 		if (shoot)
 		{
@@ -57,7 +56,7 @@ public class PlayerScript : MonoBehaviour
 		rb.velocity = movement;
 	}
 
-	private void OnCollisionEnter2D(Collision otherCollider)
+	private void OnCollisionEnter2D(Collision2D otherCollider)
 	{
 		bool damagePlayer = false;
 

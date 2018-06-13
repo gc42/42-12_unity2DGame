@@ -50,7 +50,10 @@ public class WeaponScript : MonoBehaviour
 	{
 		if (CanAttack)
 		{
-			float random = Random.Range(0.0f, 0.2f);
+			
+			float random = 0f;
+			if (isEnemy)
+				random = Random.Range(0.0f, 0.2f);
 			shootCooldown = shootingRate + random;
 
 			// Create a new shot
