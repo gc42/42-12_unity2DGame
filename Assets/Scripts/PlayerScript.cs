@@ -43,9 +43,23 @@ public class PlayerScript : MonoBehaviour
 				weapon.Attack(false);
 			}
 		}
-	}
 
-	// This function is called every fixed framerate frame, if the MonoBehaviour is enabled
+		// Make sure we are not outside the camera bounds
+		var distZ = (transform.position - Camera.main.transform.position).z;
+		var leftBorder   = Camera.main.ViewportToWorldPoint( new Vector3(0, 0, distZ) ).x;
+		var rightBorder  = Camera.main.ViewportToWorldPoint( new Vector3(1, 0, distZ) ).x;
+		var topBorder    = Camera.main.ViewportToWorldPoint( new Vector3(0, 0, distZ) ).y;
+		var bottomBorder = Camera.main.ViewportToWorldPoint( new Vector3(0, 1, distZ) ).y;
+
+		transform.position = new Vector3(
+			Mathf.Clamp(transform.position.x, leftBorder, rightBorder),
+			Mathf.Clamp(transform.position.y, topBorder,  bottomBorder),
+			transform.position.z);
+
+	} // End Update method -------------------------------------------------------
+
+
+
 	private void FixedUpdate()
 	{
 		// Get the component and store the reference
