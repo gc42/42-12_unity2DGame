@@ -52,7 +52,8 @@ public class WeaponScript : MonoBehaviour
 			shootCooldown = shootingRate;
 
 			// Create a new shot
-			var shotTransform = Instantiate(shotPrefab) as Transform;
+			//var shotTransform = Instantiate(shotPrefab, transform.position, Quaternion.Inverse(transform.parent.rotation)) as Transform;
+			var shotTransform = Instantiate(shotPrefab, transform.position, transform.parent.rotation) as Transform;
 
 			// Assign position
 			shotTransform.position = transform.position;

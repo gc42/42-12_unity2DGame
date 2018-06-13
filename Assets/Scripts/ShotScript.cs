@@ -21,7 +21,7 @@ public class ShotScript : MonoBehaviour
 	void Start()
 	{
 		// Life time limited
-		Destroy(gameObject, 20); // 20sec
+		Destroy(gameObject, 6); // 20sec
 	}
 
 
