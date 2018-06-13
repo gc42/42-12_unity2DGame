@@ -28,6 +28,9 @@ public class HealthScript : MonoBehaviour
 
 		if (hp <= 0)
 		{
+			// Explosion
+			SpecialEffectsHelper.Instance.Explosion(new Vector3(transform.position.x, transform.position.y, -1.0f));
+			Debug.Log("Explosion called");
 			// Dead
 			Destroy(gameObject);
 		}
