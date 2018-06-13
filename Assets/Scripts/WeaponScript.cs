@@ -25,7 +25,8 @@ public class WeaponScript : MonoBehaviour
 
 	void Start ()
 	{
-		shootCooldown = 0.0f;
+		float random = Random.Range(0.0f, 2.0f);
+		shootCooldown = random;
 	}
 
 	void Update ()
@@ -49,7 +50,8 @@ public class WeaponScript : MonoBehaviour
 	{
 		if (CanAttack)
 		{
-			shootCooldown = shootingRate;
+			float random = Random.Range(0.0f, 0.2f);
+			shootCooldown = shootingRate + random;
 
 			// Create a new shot
 			//var shotTransform = Instantiate(shotPrefab, transform.position, Quaternion.Inverse(transform.parent.rotation)) as Transform;
