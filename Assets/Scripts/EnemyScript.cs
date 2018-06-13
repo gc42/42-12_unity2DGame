@@ -61,6 +61,7 @@ public class EnemyScript : MonoBehaviour
 				{
 					// Attack(true) because here we are an enemy
 					weapon.Attack(true);
+					SoundEffectsHelper.Instance.MakeEnemyShotSound();
 				}
 			}
 

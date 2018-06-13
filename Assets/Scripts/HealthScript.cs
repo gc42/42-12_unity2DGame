@@ -30,7 +30,7 @@ public class HealthScript : MonoBehaviour
 		{
 			// Explosion
 			SpecialEffectsHelper.Instance.Explosion(new Vector3(transform.position.x, transform.position.y, -1.0f));
-			Debug.Log("Explosion called");
+			SoundEffectsHelper.Instance.MakeExplosionSound();
 			// Dead
 			Destroy(gameObject);
 		}

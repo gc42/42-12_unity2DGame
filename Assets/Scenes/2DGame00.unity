@@ -445,6 +445,8 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 578660019}
+  - component: {fileID: 578660020}
+  - component: {fileID: 578660021}
   m_Layer: 0
   m_Name: Scripts
   m_TagString: Untagged
@@ -465,6 +467,35 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &578660020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 578660018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3a4c82adf785431abab1447714dde94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  smokeEffect: {fileID: 198242233440934796, guid: 3d6d54acdffab424d9d6c993301754f6,
+    type: 2}
+  fireEffect: {fileID: 198781768565781388, guid: afbaa4f2bfe9c476cba3c7f45bc5561c,
+    type: 2}
+--- !u!114 &578660021
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 578660018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d124dde258c04f6e803c3747ba76a7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  explosionSound: {fileID: 8300000, guid: fc7ea7dfa33664340ba629ccd4ebb004, type: 3}
+  playerShotSound: {fileID: 8300000, guid: 605825019a6bf454887275a3e6008b39, type: 3}
+  enemyShotSound: {fileID: 8300000, guid: b3d2df69b2ee74a059286cd49cda8c80, type: 3}
 --- !u!4 &613941949 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4021969850865974, guid: 0432935c919c44bc59eea6c100217649,
@@ -893,6 +924,16 @@ Prefab:
         type: 2}
       propertyPath: speed.y
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114604779223440334, guid: b574203ea68d34c5c9d46eb9b4d6ee19,
+        type: 2}
+      propertyPath: hp
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 114301925082614980, guid: b574203ea68d34c5c9d46eb9b4d6ee19,
+        type: 2}
+      propertyPath: shootingRate
+      value: 0.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b574203ea68d34c5c9d46eb9b4d6ee19, type: 2}
