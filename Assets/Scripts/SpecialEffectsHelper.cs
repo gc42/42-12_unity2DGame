@@ -54,7 +54,7 @@ public class SpecialEffectsHelper : MonoBehaviour
 		  ) as ParticleSystem;
 
 		// Make sure it will be destroyed
-		Destroy( newParticleSystem.gameObject, newParticleSystem.startLifetime );
+		Destroy( newParticleSystem.gameObject,  0.6f); //newParticleSystem.main.startLifetime
 
 		return newParticleSystem;
 	}

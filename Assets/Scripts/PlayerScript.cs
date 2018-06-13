@@ -100,6 +100,14 @@ public class PlayerScript : MonoBehaviour
 		}
 	}
 
+	private void OnDestroy()
+	{
+		// Game Over
+		var gameOver = FindObjectOfType<GameOverScript>();
+
+		gameOver.ShowButtons();
+	}
+
 
 
 }
