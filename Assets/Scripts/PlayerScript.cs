@@ -42,5 +42,6 @@ public class PlayerScript : MonoBehaviour
 		// Move the game object
 		rb.velocity = movement;
 	}
+	// updated
 
 }
