@@ -28,22 +28,32 @@ public class ScrollingScript : MonoBehaviour
 	/// </summary>
 	public bool isLooping = false;
 
-	/// <summary>
-	/// List of children with a renderer
-	/// </summary>
+
+	// List of children with a renderer
 	private List<SpriteRenderer> backgroundPart;
+
+	private Vector2 repeatableSize;
 
 
 
 
 	private void Start()
 	{
-		// Get all the children, for infinite background only
+		// For infinite background only
 		if (isLooping)
 		{
-			// Get all the children of the layer with a renderer
+			//---------------------------------------------------------------------------------
+			// Retrieve background objects:
+			// -- We need to know what this background is made of
+			// -- Store a reference of each object
+			// -- Order those items in the order of the scrolling, so we know the item that will be the first to be recycled
+			// -- Compute the relative position between each part before they start moving
+			//---------------------------------------------------------------------------------
+
+			// Initialise an empty list
 			backgroundPart = new List<SpriteRenderer>();
 
+			// Get all the children of the layer with a renderer
 			for (int i = 0; i < transform.childCount; i++)
 			{
 				Transform child = transform.GetChild(i);
@@ -56,11 +66,26 @@ public class ScrollingScript : MonoBehaviour
 				}
 			}
 
+			if (backgroundPart.Count == 0)
+			{
+				Debug.LogError("Nothing to scroll!!");
+			}
+
 			// Sort by position
 			// Note: Get the children from left to right.
 			// Later, we would need to add a few conditions to handle
 			// all the possible scrolling directions.
-			backgroundPart = backgroundPart.OrderBy(t => t.transform.position.x).ToList();
+			backgroundPart = backgroundPart.OrderBy(
+				t => t.transform.position.x * (-1 * direction.x)).ThenBy(
+				t => t.transform.position.y * (-1 * direction.y)).ToList();
+
+			// Get the size of the repeatable parts
+			var first = backgroundPart.First();
+			var last  = backgroundPart.Last();
+
+			repeatableSize = new Vector2(
+				Mathf.Abs(last.transform.position.x - first.transform.position.x),
+				Mathf.Abs(last.transform.position.y - first.transform.position.y));
 
 		}
 	}
@@ -88,30 +113,107 @@ public class ScrollingScript : MonoBehaviour
 		// Loop
 		if (isLooping)
 		{
-			// Get the first object. List is ordered from left (x position) to right
+			//--------------------
+			// Check if the object is before, in or after the Camera bounds
+			//--------------------
+
+			// Camera borders
+			var distZ = (transform.position - Camera.main.transform.position).z;
+			float leftBorder = Camera.main.ViewportToWorldPoint(new Vector3(0, 0, distZ)).x;
+			float rightBorder = Camera.main.ViewportToWorldPoint(new Vector3(1, 0, distZ)).x;
+			float topBorder = Camera.main.ViewportToWorldPoint(new Vector3(0, 0, distZ)).y;
+			float bottomBorder = Camera.main.ViewportToWorldPoint(new Vector3(0, 1, distZ)).y;
+
+			// Determine entry and exit border using direction
+			Vector3 exitBorder  = Vector3.zero;
+			Vector3 entryBorder = Vector3.zero;
+
+			if (direction.x < 0)
+			{
+				entryBorder.x = rightBorder;
+				exitBorder.x  = leftBorder;
+			}
+			else if (direction.x > 0)
+			{
+				entryBorder.x = leftBorder;
+				exitBorder.x  = rightBorder;
+			}
+
+			if (direction.y < 0)
+			{
+				entryBorder.y = topBorder;
+				exitBorder.y  = bottomBorder;
+			}
+			else if (direction.y > 0)
+			{
+				entryBorder.y = bottomBorder;
+				exitBorder.y  = topBorder;
+			}
+
+
+
+
+
+
+
+
+
+
+
+			// Get the first object.
+			// Remember that the list is ordered from left (x position) to right
+			// and top to bottom
 			SpriteRenderer firstChild = backgroundPart.FirstOrDefault();
 
 			if (firstChild != null)
 			{
-				// Check if the child is already (partly) before the camera.
-				// We test this position first because the IsVisibleFrom method
-				// is a bit heavier to execute.
-				if (firstChild.transform.position.x < Camera.main.transform.position.x)
+				bool checkVisible = false;
+
+				// Check if we are after the camera
+				// The check is on the position first, as IsVisibleFrom is a heavy method
+				// Here again, we check the border depending on the direction
+				if (System.Math.Abs(direction.x) > Mathf.Epsilon)
 				{
-					// If the child pivot is already on the left of the camera,
-					// we test if it's completely outside and needs to be recycled.
+					if (   (direction.x < 0 && (firstChild.transform.position.x < exitBorder.x))
+					    || (direction.x > 0 && (firstChild.transform.position.x > exitBorder.x)))
+					{
+						checkVisible = true;
+					}
+				}
+				if (System.Math.Abs(direction.y) > Mathf.Epsilon)
+				{
+					if (   (direction.y < 0 && (firstChild.transform.position.y < exitBorder.y))
+						|| (direction.y > 0 && (firstChild.transform.position.y > exitBorder.y)))
+					{
+						checkVisible = true;
+					}
+				}
+
+
+
+
+
+
+
+				// Check if the sprite is really visible on the camera or not
+				if (checkVisible)
+				{
+					//----------------------------------------------------------
+					// The object was in the camera bounds but isn't anymore.
+					// -- We need to recycle it
+					// -- That means he was the first, he's now the last
+					// -- And we physically moves him to the further position possible
+					//----------------------------------------------------------
+
 					if (firstChild.IsVisibleFrom(Camera.main) == false)
 					{
-						// Get the last child position
-						SpriteRenderer lastChild = backgroundPart.LastOrDefault();
-						Vector3 lastPosition = lastChild.transform.position;
-						Vector3 lastSize = (lastChild.bounds.max - lastChild.bounds.min);
+
 
 						// Set the position of the recycled one to be AFTER the last child.
-						// Note: Only work for horizontal scrolling currently.
 						firstChild.transform.position = new Vector3(
-							lastPosition.x + lastSize.x,
-							firstChild.transform.position.y,
+							
+							firstChild.transform.position.x + ((repeatableSize.x + firstChild.bounds.size.x) * -1 * direction.x),
+							firstChild.transform.position.y + ((repeatableSize.y + firstChild.bounds.size.y) * -1 * direction.y),
 							firstChild.transform.position.z);
 
 						// Set the recycled child to the last position
