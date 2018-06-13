@@ -16,7 +16,7 @@ public class WeaponScript : MonoBehaviour
 	/// <summary>
 	/// Cooldown in seconds between two shots
 	/// </summary>
-	public float shootingRate = 0.25f;
+	public float shootingRate = 0.2f;
 
 	//-----------------------
 	// -- Cooldown
@@ -25,12 +25,12 @@ public class WeaponScript : MonoBehaviour
 
 	void Start ()
 	{
-		shootingRate = 0f;
+		shootCooldown = 0.0f;
 	}
 
 	void Update ()
 	{
-		if (shootCooldown > 0)
+		if (shootCooldown > 0.0f)
 		{
 			shootCooldown -= Time.deltaTime;
 		}

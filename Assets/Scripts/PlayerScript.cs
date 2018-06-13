@@ -30,6 +30,20 @@ public class PlayerScript : MonoBehaviour
 		movement = new Vector2(
 			speed.x * inputX,
 			speed.y * inputY);
+
+		// Shooting
+		bool shoot = Input.GetKey(KeyCode.Space);
+		//shoot     |= Input.GetKeyDown("Fire2");
+
+		if (shoot)
+		{
+			WeaponScript weapon = GetComponentInChildren<WeaponScript>();
+			if (weapon != null)
+			{
+				// Attack(false) because the player is not an enemy
+				weapon.Attack(false);
+			}
+		}
 	}
 
 	// This function is called every fixed framerate frame, if the MonoBehaviour is enabled
