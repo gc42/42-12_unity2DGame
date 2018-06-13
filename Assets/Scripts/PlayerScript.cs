@@ -11,7 +11,7 @@ public class PlayerScript : MonoBehaviour
 	/// <summary>
 	/// The speed of the ship
 	/// </summary>
-	public Vector2 speed = new Vector2(30, 30);
+	public Vector2 speed = new Vector2(20, 20);
 
 	// Store the movement and the component
 	private Vector2 movement;
