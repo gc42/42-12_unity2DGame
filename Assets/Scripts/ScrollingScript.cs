@@ -119,10 +119,11 @@ public class ScrollingScript : MonoBehaviour
 
 			// Camera borders
 			var distZ = (transform.position - Camera.main.transform.position).z;
-			float leftBorder = Camera.main.ViewportToWorldPoint(new Vector3(0, 0, distZ)).x;
-			float rightBorder = Camera.main.ViewportToWorldPoint(new Vector3(1, 0, distZ)).x;
-			float topBorder = Camera.main.ViewportToWorldPoint(new Vector3(0, 0, distZ)).y;
-			float bottomBorder = Camera.main.ViewportToWorldPoint(new Vector3(0, 1, distZ)).y;
+
+			float leftBorder   = Camera.main.ViewportToWorldPoint(new Vector3(0, 0, distZ)).x;
+			float rightBorder  = Camera.main.ViewportToWorldPoint(new Vector3(1, 0, distZ)).x;
+			float bottomBorder = Camera.main.ViewportToWorldPoint(new Vector3(0, 0, distZ)).y;
+			float topBorder    = Camera.main.ViewportToWorldPoint(new Vector3(0, 1, distZ)).y;
 
 			// Determine entry and exit border using direction
 			Vector3 exitBorder  = Vector3.zero;

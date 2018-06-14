@@ -64,12 +64,13 @@ public class EnemyScript : MonoBehaviour
 					SoundEffectsHelper.Instance.MakeEnemyShotSound();
 				}
 			}
-
+			/*
 			// If out of camera, destroy the game object
 			if (rendererComponent.IsVisibleFrom(Camera.main) == false)
 			{
 				Destroy(gameObject);
 			}
+			*/
 		}
 
 	}
