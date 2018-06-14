@@ -29,7 +29,7 @@ public class HealthScript : MonoBehaviour
 		if (hp <= 0)
 		{
 			// Explosion
-			SpecialEffectsHelper.Instance.Explosion(new Vector3(transform.position.x, transform.position.y, -1.0f));
+			SpecialEffectsHelper.Instance.Explosion(new Vector3(transform.position.x, transform.position.y, -5.0f));
 			SoundEffectsHelper.Instance.MakeExplosionSound();
 			// Dead
 			Destroy(gameObject);
@@ -48,6 +48,8 @@ public class HealthScript : MonoBehaviour
 				Damage(shot.damage);
 
 				// Destroy the shot
+				SpecialEffectsHelper.Instance.ExplosionPlouf(new Vector3(transform.position.x, transform.position.y, -5.0f));
+				SoundEffectsHelper.Instance.MakeExplosionSound();
 				Destroy(shot.gameObject);
 			}
 		}

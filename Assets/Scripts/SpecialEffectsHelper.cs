@@ -13,6 +13,7 @@ public class SpecialEffectsHelper : MonoBehaviour
 
 	public ParticleSystem smokeEffect;
 	public ParticleSystem fireEffect;
+	public ParticleSystem fireEffectLittle;
 
 	private void Awake()
 	{
@@ -37,6 +38,10 @@ public class SpecialEffectsHelper : MonoBehaviour
 		CreateInstantiate(fireEffect, position);
 	}
 
+	public void ExplosionPlouf(Vector3 position)
+	{
+		CreateInstantiate(fireEffectLittle, position);
+	}
 
 
 
