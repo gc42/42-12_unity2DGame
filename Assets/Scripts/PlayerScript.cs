@@ -26,13 +26,18 @@ public class PlayerScript : MonoBehaviour
 		float inputX = Input.GetAxis("Horizontal");
 		float inputY = Input.GetAxis("Vertical");
 
+		float mouseX = Input.GetAxis("Mouse X");
+		float mouseY = Input.GetAxis("Mouse Y");
+
 		// Movement per direction
 		movement = new Vector2(
-			speed.x * inputX,
-			speed.y * inputY);
+			speed.x * (inputX + mouseX),
+			speed.y * (inputY + mouseY)
+			);
 
 		// Shooting
-		bool shoot = Input.GetKey(KeyCode.Space);
+		bool shoot = ( Input.GetKey(KeyCode.Space) || Input.GetMouseButton(0) );
+
 
 		if (shoot)
 		{
