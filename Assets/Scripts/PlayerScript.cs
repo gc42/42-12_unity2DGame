@@ -88,7 +88,7 @@ public class PlayerScript : MonoBehaviour
 			HealthScript enemyHealth = enemy.GetComponent<HealthScript>();
 			if (enemyHealth != null)
 			{
-				enemyHealth.Damage(enemyHealth.hp);
+				enemyHealth.Damage(enemyHealth.hp, false);
 			}
 
 			damagePlayer = true;
@@ -100,7 +100,7 @@ public class PlayerScript : MonoBehaviour
 			HealthScript playerHealth = this.GetComponent<HealthScript>();
 			if (playerHealth != null)
 			{
-				playerHealth.Damage(1);
+				playerHealth.Damage(1, false);
 			}
 		}
 	}

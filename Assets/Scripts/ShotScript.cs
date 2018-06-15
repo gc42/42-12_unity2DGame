@@ -24,5 +24,14 @@ public class ShotScript : MonoBehaviour
 		Destroy(gameObject, 6); // 20sec
 	}
 
+	private void Update()
+	{
+		// Delete if out of scene limits
+		if (transform.position.x < -10f || transform.position.y > 10f || transform.position.y < -10f)
+		{
+			Destroy(gameObject);
+		}
+	}
+
 
 }

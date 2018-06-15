@@ -86,7 +86,7 @@ public class WeaponScript : MonoBehaviour
 	{
 		get
 		{
-			return shootCooldown <= 0f;
+			return (shootCooldown <= 0f && transform.position.x > -10f);
 		}
 	}
 }

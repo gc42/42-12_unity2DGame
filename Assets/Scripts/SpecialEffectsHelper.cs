@@ -40,7 +40,8 @@ public class SpecialEffectsHelper : MonoBehaviour
 
 	public void ExplosionPlouf(Vector3 position)
 	{
-		CreateInstantiate(fireEffectLittle, position);
+		//CreateInstantiate(fireEffectLittle, position);
+		CreateInstantiate(fireEffect, position);
 	}
 
 
@@ -59,7 +60,7 @@ public class SpecialEffectsHelper : MonoBehaviour
 		  ) as ParticleSystem;
 
 		// Make sure it will be destroyed
-		Destroy( newParticleSystem.gameObject,  0.6f); //newParticleSystem.main.startLifetime
+		Destroy( newParticleSystem.gameObject,  0.6f); // duree de vie en secondes. TODO: newParticleSystem.main.startLifetime
 
 		return newParticleSystem;
 	}
