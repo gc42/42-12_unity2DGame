@@ -32,7 +32,7 @@ public class ScrollingScript : MonoBehaviour
 	// List of children with a renderer
 	private List<SpriteRenderer> backgroundPart;
 
-	private Vector2 repeatableSize;
+	public Vector2 repeatableSize;
 
 
 
@@ -113,9 +113,7 @@ public class ScrollingScript : MonoBehaviour
 		// Loop
 		if (isLooping)
 		{
-			//--------------------
-			// Check if the object is before, in or after the Camera bounds
-			//--------------------
+			//-------------------- Check if the object is before, in or after the Camera bounds
 
 			// Camera borders
 			var distZ = (transform.position - Camera.main.transform.position).z;
@@ -153,15 +151,7 @@ public class ScrollingScript : MonoBehaviour
 
 
 
-
-
-
-
-
-
-
-
-			// Get the first object.
+			//-------------------- Get the first object.
 			// Remember that the list is ordered from left (x position) to right
 			// and top to bottom
 			SpriteRenderer firstChild = backgroundPart.FirstOrDefault();
@@ -196,11 +186,11 @@ public class ScrollingScript : MonoBehaviour
 
 
 
-				// Check if the sprite is really visible on the camera or not
+				//-------------------- Check if the sprite is really visible on the camera or not
 				if (checkVisible)
 				{
-					//----------------------------------------------------------
 					// The object was in the camera bounds but isn't anymore.
+					//----------------------------------------------------------
 					// -- We need to recycle it
 					// -- That means he was the first, he's now the last
 					// -- And we physically moves him to the further position possible
@@ -208,17 +198,14 @@ public class ScrollingScript : MonoBehaviour
 
 					if (firstChild.IsVisibleFrom(Camera.main) == false)
 					{
-
-
-						// Set the position of the recycled one to be AFTER the last child.
+						// Set the position of the recycled child to be AFTER the last child.
 						firstChild.transform.position = new Vector3(
 							
 							firstChild.transform.position.x + ((repeatableSize.x + firstChild.bounds.size.x) * -1 * direction.x),
 							firstChild.transform.position.y + ((repeatableSize.y + firstChild.bounds.size.y) * -1 * direction.y),
 							firstChild.transform.position.z);
 
-						// Set the recycled child to the last position
-						// of the backgroundPart list
+						// Set the recycled child to the last position of the backgroundPart list
 						backgroundPart.Remove(firstChild);
 						backgroundPart.Add(firstChild);
 					}

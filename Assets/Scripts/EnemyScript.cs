@@ -26,18 +26,7 @@ public class EnemyScript : MonoBehaviour
 
 	void Start()
 	{
-		hasSpawn = false;
-
-		// Disable everything
-		// -- Collider
-		colliderComponent.enabled = false;
-		// -- Moving
-		moveScript.enabled = false;
-		// -- Shooting
-		foreach (WeaponScript weapon in weapons)
-		{
-			weapon.enabled = false;
-		}
+		UnSpawn();
 	}
 
 
@@ -47,7 +36,7 @@ public class EnemyScript : MonoBehaviour
 		// Check if the enemy has spawned
 		if (hasSpawn == false)
 		{
-			if (rendererComponent.IsVisibleFrom(Camera.main))
+			if (rendererComponent.IsVisibleFrom(Camera.main)== true)
 			{
 				Spawn();
 			}
@@ -64,13 +53,29 @@ public class EnemyScript : MonoBehaviour
 					SoundEffectsHelper.Instance.MakeEnemyShotSound();
 				}
 			}
-			/*
-			// If out of camera, destroy the game object
+
+			// If out of camera, spawn the game object at the other side of the playground
 			if (rendererComponent.IsVisibleFrom(Camera.main) == false)
 			{
-				Destroy(gameObject);
+				float randomDistance = Random.Range(0f, 3f);
+				Vector2 repeatableSize = GetComponentInParent<ScrollingScript>().repeatableSize;
+
+
+				transform.position = new Vector2(
+					transform.position.x + repeatableSize.x + randomDistance,
+					transform.position.y);
+				UnSpawn();
 			}
-			*/
+
+		}
+
+		if (Input.GetKeyDown(KeyCode.A))
+		{
+			UnSpawn();
+		}
+		if (Input.GetKeyUp(KeyCode.A))
+		{
+			UnSpawn();
 		}
 
 	}
@@ -90,5 +95,25 @@ public class EnemyScript : MonoBehaviour
 		{
 			weapon.enabled = true;
 		}
+	}
+
+	// Deactivate him self
+	private void UnSpawn()
+	{
+		hasSpawn = false;
+
+
+		// Disable everything
+		// -- Collider
+		colliderComponent.enabled = false;
+		// -- Moving
+		moveScript.enabled = false;
+		// -- Shooting
+		foreach (WeaponScript weapon in weapons)
+		{
+			weapon.enabled = false;
+		}
+		Rigidbody2D rb = GetComponent<Rigidbody2D>();
+		rb.velocity = Vector2.zero;
 	}
 }

@@ -109,8 +109,14 @@ public class PlayerScript : MonoBehaviour
 	{
 		// Game Over
 		var gameOver = FindObjectOfType<GameOverScript>();
-
-		gameOver.ShowButtons();
+		if (gameOver != null)
+		{
+			gameOver.ShowButtons();
+		}
+		else
+		{
+			Debug.Log("Pas de GameOverScript finded. gameOver.ShowButtons() cannot execute");
+		}
 	}
 
 

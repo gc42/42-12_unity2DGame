@@ -48,13 +48,14 @@ public class HealthScript : MonoBehaviour
 	{
 		// Is this collision a shot?
 		ShotScript shot = otherCollider.gameObject.GetComponent<ShotScript>();
+		iAmEnemyShot = false;
 
 		if (tag == "shot_enemy")
 		{
 			iAmEnemyShot = true;
 		}
-		else
-			iAmEnemyShot = false;
+
+			
 		if (shot != null)
 		{
 			// Avoid friendly fire
